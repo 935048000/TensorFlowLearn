@@ -7,5 +7,6 @@ result = a + b
 print(result)
 
 sess = tf.Session()
-print()
-sess.run(result)
+print(sess.run(result))
+
+sess.close()
