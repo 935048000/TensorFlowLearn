@@ -1,3 +1,4 @@
+#coding=utf-8
 import tensorflow as tf
 from numpy.random import RandomState
 
@@ -12,6 +13,7 @@ y_ = tf.placeholder (tf.float32, shape=(None, 1), name="y-input")
 a = tf.matmul(x,w1)
 y = tf.matmul(a,w2)
 
+# 计算交叉熵
 cross_entropy = -tf.reduce_mean(y_ * tf.log(tf.clip_by_value(y, 1e-10, 1.0)))
 # cross_entropy = -tf.reduce_mean(y_ * tf.log(tf.clip_by_value(y, 1e-10, 1.0)))
 train_step = tf.train.AdadeltaOptimizer(0.001).minimize(cross_entropy)
