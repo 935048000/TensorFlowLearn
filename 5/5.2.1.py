@@ -13,7 +13,7 @@ LEARNING_RATE_BASE = 0.8  # 基础学习率
 LEARNING_RATE_DECAY = 0.99  # 学习率的衰减率
 REGULARAZTION_RATE = 0.0001  # 正则化项在损失函数中的系数
 TRAINING_STEPS = 5000  # 训练轮数滑动平均衰减率
-
+MOVING_AVERAGE_DECAY = 0.99
 
 # 辅助函数，输入参数，计算前向传播结果
 # 定义 relu 激活函数的三层全连接，加入隐藏层实现多层结构
