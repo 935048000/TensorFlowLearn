@@ -1,4 +1,4 @@
-#coding=utf-8
+# coding=utf-8
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 
@@ -9,10 +9,11 @@ LAYER1_NODE = 500  # 隐藏层数
 BATCH_SIZE = 100  # 每次batch打包的样本个数，一个训练中的数量数据个数
 
 # 模型相关的参数
-LEARNING_RATE_BASE = 0.8 # 基础学习率
+LEARNING_RATE_BASE = 0.8  # 基础学习率
 LEARNING_RATE_DECAY = 0.99  # 学习率的衰减率
-REGULARAZTION_RATE = 0.0001 # 正则化项在损失函数中的系数
-TRAINING_STEPS = 5000 # 训练轮数滑动平均衰减率
+REGULARAZTION_RATE = 0.0001  # 正则化项在损失函数中的系数
+TRAINING_STEPS = 5000  # 训练轮数滑动平均衰减率
+
 
 # 辅助函数，输入参数，计算前向传播结果
 # 定义 relu 激活函数的三层全连接，加入隐藏层实现多层结构
@@ -21,14 +22,15 @@ def inference(input_tensor, avg_class, weights1, biases1, weights2, biases2):
     # 不使用滑动平均类
     if avg_class == None:
         # 计算隐藏层前向传播结果
-        layer1 = tf.nn.relu(tf.matmul(input_tensor, weights1) + biases1)
+        layer1 = tf.nn.relu (tf.matmul (input_tensor, weights1) + biases1)
         # 计算输出层前向传播结果
-        return tf.matmul(layer1, weights2) + biases2
+        return tf.matmul (layer1, weights2) + biases2
 
     else:
         # 使用滑动平均类
-        layer1 = tf.nn.relu(tf.matmul(input_tensor, avg_class.average(weights1)) + avg_class.average(biases1))
-        return tf.matmul(layer1, avg_class.average(weights2)) + avg_class.average(biases2)
+        layer1 = tf.nn.relu (tf.matmul (input_tensor, avg_class.average (weights1)) + avg_class.average (biases1))
+        return tf.matmul (layer1, avg_class.average (weights2)) + avg_class.average (biases2)
+
 
 # 训练模型的过程
 def train(mnist):
@@ -62,15 +64,15 @@ def train(mnist):
     regularizer = tf.contrib.layers.l2_regularizer (REGULARAZTION_RATE)
     # 计算模型的正则化损失
     regularaztion = regularizer (weights1) + regularizer (weights2)
-    #交叉熵+正则化损失
+    # 交叉熵+正则化损失
     loss = cross_entropy_mean + regularaztion
 
     # 设置指数衰减的学习率。
     learning_rate = tf.train.exponential_decay (
-        LEARNING_RATE_BASE, # 基础学习率
-        global_step, # 学习率在这个基础递减
-        mnist.train.num_examples / BATCH_SIZE, # 过完所有训练数据需要迭代次数
-        LEARNING_RATE_DECAY, # 学习率衰减速度
+        LEARNING_RATE_BASE,  # 基础学习率
+        global_step,  # 学习率在这个基础递减
+        mnist.train.num_examples / BATCH_SIZE,  # 过完所有训练数据需要迭代次数
+        LEARNING_RATE_DECAY,  # 学习率衰减速度
         staircase=True)
 
     # 优化损失函数
@@ -105,10 +107,12 @@ def train(mnist):
         test_acc = sess.run (accuracy, feed_dict=test_feed)
         print (("After %d training step(s), test accuracy using average model is %g" % (TRAINING_STEPS, test_acc)))
 
+
 # 主程序
 def main(argv=None):
-        mnist = input_data.read_data_sets ("./MNIST_data", one_hot=True)
-        train (mnist)
+    mnist = input_data.read_data_sets ("./MNIST_data", one_hot=True)
+    train (mnist)
+
 
 if __name__ == '__main__':
-        main()
+    main ()
