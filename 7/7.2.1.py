@@ -4,7 +4,7 @@ import tensorflow as tf
 import numpy as np
 
 # 读取图片
-image_raw_data = tf.gfile.FastGFile ("../datasets/cat.jpg", 'r').read ()
+image_raw_data = tf.gfile.FastGFile ("../datasets/cat.jpg", 'rb').read ()
 
 with tf.Session () as sess:
     img_data = tf.image.decode_jpeg (image_raw_data)
