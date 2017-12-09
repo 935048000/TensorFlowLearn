@@ -29,9 +29,9 @@ def preprocess_for_train(image, height, width, bbox):
 
     # 随机的截取图片中一个块。
     bbox_begin, bbox_size, _ = tf.image.sample_distorted_bounding_box (
-        tf.shape (image), bounding_boxes=bbox)
+        tf.shape (image), bounding_boxes=bbox,min_object_covered=0.1)
     bbox_begin, bbox_size, _ = tf.image.sample_distorted_bounding_box (
-        tf.shape (image), bounding_boxes=bbox)
+        tf.shape (image), bounding_boxes=bbox,min_object_covered=0.1)
     distorted_image = tf.slice (image, bbox_begin, bbox_size)
 
     # 将随机截取的图片调整为神经网络输入层的大小。
