@@ -1,7 +1,8 @@
 import numpy as np
 import tensorflow as tf
 import reader
-from tensorflow import ReaderBase
+
+
 
 DATA_PATH = "../datasets/PTB/data"
 HIDDEN_SIZE = 200  # 隐藏层规模
@@ -101,7 +102,7 @@ def run_epoch(session, model, data, train_op, output_log, epoch_size):
 # 定义主函数并执行
 def main():
     train_data, valid_data, test_data, _ = reader.ptb_raw_data(DATA_PATH)
-tf.
+
     # 计算一个epoch需要训练的次数
     train_data_len = len(train_data)
     train_batch_len = train_data_len // TRAIN_BATCH_SIZE
