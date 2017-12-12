@@ -14,7 +14,7 @@ TRAINING_STEPS = 10000
 MOVING_AVERAGE_DECAY = 0.99
 
 
-def train(mnist, logits=None):
+def train(mnist):
     # 定义输出为4维矩阵的placeholder
     x = tf.placeholder (tf.float32, [
         BATCH_SIZE,
@@ -31,7 +31,7 @@ def train(mnist, logits=None):
     # 定义损失函数、学习率、滑动平均操作以及训练过程。
     variable_averages = tf.train.ExponentialMovingAverage (MOVING_AVERAGE_DECAY, global_step)
     variables_averages_op = variable_averages.apply (tf.trainable_variables ())
-    cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits (logits=y,labels=tf.argmax (y_, 1))
+    cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits (logits=y, labels=tf.argmax (y_, 1))
     cross_entropy_mean = tf.reduce_mean (cross_entropy)
     loss = cross_entropy_mean + tf.add_n (tf.get_collection ('losses'))
     learning_rate = tf.train.exponential_decay (
@@ -60,7 +60,6 @@ def train(mnist, logits=None):
 
             if i % 1000 == 0:
                 print ("After %d training step(s), loss on training batch is %g." % (step, loss_value))
-
 
 def main(argv=None):
     mnist = input_data.read_data_sets("./MNIST_data", one_hot=True)
